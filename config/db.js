@@ -3,6 +3,13 @@ import dotenv from 'dotenv';
 
 dotenv.config();
 
+const useSsl =
+  process.env.DB_SSL === '0' || process.env.DB_SSL === 'false'
+    ? false
+    : process.env.DB_SSL === '1' ||
+      process.env.DB_SSL === 'true' ||
+      process.env.VERCEL === '1';
+
 const pool = mysql.createPool({
   host: process.env.DB_HOST,
   user: process.env.DB_USER,
@@ -11,6 +18,7 @@ const pool = mysql.createPool({
   waitForConnections: true,
   connectionLimit: 10,
   queueLimit: 0,
+  ...(useSsl ? { ssl: { rejectUnauthorized: true } } : {}),
 });
 
 export default pool;
