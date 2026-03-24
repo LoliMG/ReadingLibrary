@@ -4,7 +4,10 @@ import path from 'path';
 import { fileURLToPath } from 'url';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
-dotenv.config({ path: path.resolve(__dirname, '..', '.env') });
+dotenv.config({
+  path: path.resolve(__dirname, '..', '.env'),
+  override: true,
+});
 
 const useSsl =
   process.env.DB_SSL === '0' || process.env.DB_SSL === 'false'
