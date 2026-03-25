@@ -6,6 +6,9 @@ import { useEffect } from 'react';
 import axios from 'axios';
 import { apiUrl } from '../../../apiBase';
 
+import { authorsData } from '../../../../data/authors.js'
+import { booksData } from '../../../../data/books.js';
+
 const initialValue = {
   name: "",
 };
@@ -13,18 +16,18 @@ const initialValue = {
 export const AllAuthors = ({ books, author }) => {
   const [isHovered, setIsHovered] = useState(null);
   const [searchAuthor, setSearchAuthor] = useState("");
-  const [filteredAuthors, setFilteredAuthors] = useState(author);
+  const [filteredAuthors, setFilteredAuthors] = useState(/* author */ authorsData);
   const [newAuthor, setNewAuthor] = useState(initialValue);
   const [inputNewAuthor, setInputNewAuthor] = useState(false);
 
   const submit = () => {
     if (searchAuthor === "") {
-      setFilteredAuthors(author);
+      setFilteredAuthors(/* author */ authorsData);
       setSearchAuthor("");
     }
     else {
-      setFilteredAuthors(author.filter((e) =>
-        e.authorname.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "")
+      setFilteredAuthors(/* author */ authorsData.filter((e) =>
+        e./* authorname */name.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "")
           .includes(searchAuthor.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, ""))));
       setSearchAuthor("");
     }
@@ -133,12 +136,12 @@ export const AllAuthors = ({ books, author }) => {
         {filteredAuthors.map((elem, index) => (
           <Accordion.Item eventKey={index.toString()} key={elem.author_id} >
             <Accordion.Header>
-              {elem.authorname}
+              {elem./* authorname */name}
             </Accordion.Header>
             <Accordion.Body>
-              {books.filter(book => book.author_id === elem.author_id).length > 0 ? (
+              {booksData.filter(book => book.author_id === elem.author_id).length > 0 ? (
                 <div className="bookDisplay">
-                  {books
+                  {booksData
                     .filter(book => book.author_id === elem.author_id)
                     .map((book, i) => (
                       <Link

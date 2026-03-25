@@ -1,12 +1,10 @@
-import React from 'react';
-import { Button, Card } from 'react-bootstrap';
+import { Card } from 'react-bootstrap';
 import './bookcard.css';
 import { Link } from 'react-router';
 
 
 export const BookCard = ({ elem }) => {
   const stars = '⭐'.repeat(elem.rating);
-
 
   return (
     <Link to={`/book/${elem.book_id}`} style={{ textDecoration: 'none' }}>

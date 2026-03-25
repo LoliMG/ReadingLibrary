@@ -4,6 +4,8 @@ import { InputGroup, Form, Dropdown } from 'react-bootstrap';
 import { AddForm } from '../../components/addForm/AddForm';
 import { AllBooks } from '../allBooks/AllBooks';
 
+import { booksData } from '../../../../data/books.js';
+
 export const BooksPage = ({ status, author, genre, books, newBook, setNewBook }) => {
   const [form, setForm] = useState(false);
   /* filter by status */
@@ -22,7 +24,7 @@ export const BooksPage = ({ status, author, genre, books, newBook, setNewBook })
 
   const orderRating = () => {
     //Lo ordena por estrellas y por título alfabéticamente
-    const librosordenados = [...books].sort((a, b) => {
+    const librosordenados = [.../* books */ booksData].sort((a, b) => {
       if (b.rating !== a.rating) {
         return b.rating - a.rating;
       }
@@ -36,8 +38,8 @@ export const BooksPage = ({ status, author, genre, books, newBook, setNewBook })
   }
 
   useEffect(() => {
-    setFilteredBooks(books);
-  }, [books]);
+    setFilteredBooks( books);
+  }, [books ]);
 
 
   const addBookForm = () => {
@@ -51,11 +53,11 @@ export const BooksPage = ({ status, author, genre, books, newBook, setNewBook })
 
   const submit = () => {
     if (search === "") {
-      setFilteredBooks(books);
+      setFilteredBooks(/* books */ booksData);
       setSearch("");
     }
     else {
-      setFilteredBooks(books.filter((e) => e.title.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "")
+      setFilteredBooks(/* books */ booksData.filter((e) => e.title.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "")
         .includes(search.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, ""))));
       setSearch("");
     }
@@ -63,11 +65,11 @@ export const BooksPage = ({ status, author, genre, books, newBook, setNewBook })
 
   const changeFilter = (state) => {
     if (state === 'reading') {
-      setFilteredBooks([...books].filter((e) => e.status == 'leyendo'));
+      setFilteredBooks([.../* books */ booksData].filter((e) => e.status == 'leyendo'));
       setFilter('leyendo')
     }
     else if (state === 'completed') {
-      setFilteredBooks([...books].filter((e) => e.status == 'completado'));
+      setFilteredBooks([.../* books */ booksData].filter((e) => e.status == 'completado'));
       setFilter('completado')
     }
     else if (state === 'pending') {
@@ -186,7 +188,7 @@ export const BooksPage = ({ status, author, genre, books, newBook, setNewBook })
 
       <section className='pt-4'>
         <div className='container-card'>
-          <AllBooks filtered={filteredBooks} />
+          <AllBooks filtered={/* filteredBooks */ booksData} />
         </div>
       </section>
     </div>
