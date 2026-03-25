@@ -32,7 +32,7 @@ export const Library = () => {
   const [genre, setGenre] = useState([]);
   const [newBook, setNewBook] = useState(initialValue);
 
-  useEffect(() => {
+ /*  useEffect(() => {
     const fetchData = async () => {
       try {
         const res = await axios.get(apiUrl('/api/library/alldata'));
@@ -83,7 +83,7 @@ export const Library = () => {
     };
     fetchData();
   }, []);
-
+ */
   return (
     <BrowserRouter>
       <div className='common grid almendra-regular'>
